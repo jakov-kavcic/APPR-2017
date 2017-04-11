@@ -18,7 +18,56 @@ Podatke bom pridobil na spletnih stranieh:
  
 - [Izvoz energetskih produktov na letni ravni](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-053546_QID_-366C96A2_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;UNIT,L,Z,0;PRODUCT,L,Z,1;PARTNER,L,Z,2;INDICATORS,C,Z,3;&zSelection=DS-053546INDICATORS,OBS_FLAG;DS-053546UNIT,KTOE;DS-053546PARTNER,BE;DS-053546PRODUCT,0000;&rankName1=PARTNER_1_2_-1_2&rankName2=TIME_1_0_0_0&rankName3=UNIT_1_2_-1_2&rankName4=GEO_1_2_0_1&rankName5=INDICATORS_1_2_-1_2&rankName6=PRODUCT_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
  
+- [Poraba glede na produkt](http://ec.europa.eu/eurostat/tgm/table.do?tab=table&tableSelection=1&labeling=labels&footnotes=yes&layout=cat,geo,time&language=en&pcode=ten00095&plugin=1
+SVG or JavaScript disabled mode: http://ec.europa.eu/eurostat/tgm/table.do?tab=table&tableSelection=1&labeling=labels&footnotes=yes&layout=cat,geo,time&language=en&pcode=ten00095&plugin=0)
+
 - [Energetski portal Wikipedije](https://en.wikipedia.org/wiki/Portal:Energy/Explore)
+
+## Oblika tabel
+
+Tabela "Poenostavljena letna bilanca" bo vsebovala naslednje stolpce:
+
+- Država
+
+- Leto
+
+- Poraba v ekvivalentnii količini olja
+
+Tabela "Izvoz in uvoz energetskih produktov na letni ravni" bo vsebovala naslednje stolpce:
+
+- Država
+
+- Leto
+
+- Izvožena energija v ekvivalentnii količini olja
+
+- Uvožena energija v ekvivalentnii količini olja
+
+Tabela "Poraba glede na produkt" bo vsebovala naslednje stolpce:
+
+- Država
+
+- Leto
+
+- Poraba trdih goriv
+
+- Poraba Benzina in dizela 
+
+- Poraba LPG
+
+- Poraba letalskega benzina
+
+- Poraba drugega kerosina
+
+- Poraba kerosina za letala
+
+- Poraba petroleja
+
+- Poraba naravnega plina
+
+- Poraba elektrike
+
+
 
 ## Program
 
