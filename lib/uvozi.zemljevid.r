@@ -26,11 +26,11 @@ gpclibPermit()
 #   * zemljevid (SpatialPolygonsDataFrame) iz pobranega arhiva
 uvozi.zemljevid <- function(url, pot.zemljevida, mapa = "../zemljevidi",
                             encoding = "UTF-8", force = FALSE) {
-  ime.zemljevida <- digest(url, algo = "sha1")
-  map <- paste0(mapa, "/", ime.zemljevida)
-  pot <- paste0(map, "/", pot.zemljevida)
-  shp <- paste0(pot, ".shp")
-  zip <- paste0(map, "/", ime.zemljevida, ".zip")
+  ime.zemljevida <- digest(url, algo = "sha1") #da ime mapi z zemljevidi
+  map <- paste0(mapa, "/", ime.zemljevida) #pride v prvo mapo ../zemljevidi/ime.zemljevida
+  pot <- paste0(map, "/", pot.zemljevida) #znotraj mape je zemljevid v: pot.zemljevida
+  shp <- paste0(pot, ".shp") #najde specifično datoteko
+  zip <- paste0(map, "/", ime.zemljevida, ".zip") 
   if (force || !file.exists(shp)) {
     if (!file.exists(map)) {
       dir.create(map, recursive = TRUE)

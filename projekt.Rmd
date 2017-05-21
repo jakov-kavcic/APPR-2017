@@ -1,6 +1,6 @@
 ---
-title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+title: "Analiza Evropske proizvodnje in porabe energije"
+author: "Jakov Kavčič"
 output:
   html_document: default
   pdf_document:
