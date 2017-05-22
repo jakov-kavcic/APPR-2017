@@ -1,5 +1,5 @@
 source("lib/libraries.r")
-library(curl)
+
 # Uvezemo podatke za porabo, izvoz in uvoz.
 
 
@@ -25,7 +25,7 @@ uvozi.pop <- function() {
   stran <- html_session(link) %>% read_html()
   tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
     .[[1]] %>% html_table(dec = ",")
-  colnames(tabela) <- c("Država","Površina","Populacija","Gostota","Prestolnica")
+  colnames(tabela) <- c("GEO","Površina","Populacija","Gostota","Prestolnica")
   for (col in c("Površina","Gostota","Prestolnica")) {tabela[[col]] <- NULL}
   tabela$Populacija <- gsub(",","",tabela$Populacija)
   tabela$Populacija <- parse_integer(tabela$Populacija)
@@ -34,11 +34,11 @@ uvozi.pop <- function() {
 }
 
 po <- uvozi.pop()
-d <- levels(all_products$GEO)!=c("Euro area (19 countries)","European Union (28 countries)")
-drzave <- levels(all_products$GEO)[d]
+#d <- levels(all_products$GEO) %in% c("Euro area (19 countries)","EuropeanUnion (28 countries)")
+drzave <- levels(all_products$GEO)
 
-po <- filter(po,po$Država %in% drzave)
-po$Država <- parse_factor(po$Država,levels(all_products$GEO))
+po <- filter(po,po$GEO %in% drzave)
+po$GEO <- parse_factor(po$GEO,levels(all_products$GEO))
 
 write_csv(po,"podatki/populacija.csv")
 
@@ -47,12 +47,12 @@ uvoz.ak <- function(){
   stran <- html_session(link) %>% read_html()
   tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
     .[[1]] %>% html_table(dec = ",")
-  colnames(tabela) <- c("Koda","Država","n")
+  colnames(tabela) <- c("Koda","GEO","n")
   tabela$n <- NULL
-  tabela$Država <- gsub("\\[note 1\\]","",tabela$Država)
-  tabela$Država <- parse_factor(tabela$Država,tabela$Država)
-  tabela <- filter(tabela, tabela$Država %in% drzave)
-  
+  tabela$GEO <- gsub("\\[note 1\\]","",tabela$GEO)
+  tabela$GEO <- gsub("Czechia","Czech Republic",tabela$GEO)
+  tabela <- filter(tabela, tabela$GEO %in% drzave)
+  tabela$GEO <- parse_factor(tabela$GEO,tabela$GEO)
   return(tabela)
 }
 ak <- uvoz.ak()
