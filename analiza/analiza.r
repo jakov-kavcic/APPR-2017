@@ -1,6 +1,4 @@
 
-source("lib/libraries.r")
-source("uvoz/uvoz1.R")
 # # 4. faza: Analiza podatkov
 # 
 # podatki <- obcine %>% transmute(obcina, povrsina, gostota,
@@ -13,30 +11,25 @@ source("uvoz/uvoz1.R")
 # n <- 5
 # skupine <- hclust(dist(scale(podatki))) %>% cutree(n)
 
-#Razlika med Porabo in uvozom. Torej Koliko je bilo ustvarjene energije oz. potrošene iz zaloge.
 
-proizvodnja <- spread(all_products, INDIC_NRG, Value)
-proizvodnja <- add_column(proizvodnja,proizvodnja$'Gross inland consumption' - proizvodnja$Imports)
-colnames(proizvodnja)[7] <- "Proizvodnja/zaloga"
-proizvodnja$Imports <- NULL
-proizvodnja$Exports <- NULL
-proizvodnja$`Gross inland consumption` <- NULL
+graf2 <- ggplot(all_products %>% filter(PRODUCT=="All products" & 
+                                 INDIC_NRG=="Gross inland consumption" & 
+                                 GEO %in% c("Slovenia","Macedonia","Montenegro", "Croatia", "Serbia")),
+       aes(x=TIME,y=Value,color=GEO)) +
+  geom_line(aes(group=GEO)) +
+  xlab("Leto") + ylab("terajoule") +
+  ggtitle(paste0("Potrošnja južniih držav")) +
+  theme_bw()
 
-write.csv(proizvodnja,"podatki/prouizvodnja.csv")
+graf1 <- ggplot(all_products %>% filter(PRODUCT=="All products" &
+                                          INDIC_NRG=="Gross inland consumption" &
+                                          GEO %in% c("Germany","France","Italy", "United Kingdom", "Spain","Poland")),
+  aes(x=TIME,y=Value,color=GEO)) +
+  geom_line(aes(group=GEO)) +
+  theme_bw() + xlab("Leto") +
+  ylab("terajoule") +
+  ggtitle(paste0("Potrošnja severnih držav"))
 
-#Razlika med uvozom in izvozom
-
-neto <- spread(all_products, INDIC_NRG, Value)
-neto <- add_column(neto,-neto$Imports + neto$Exports)
-colnames(neto)[7] = "Neto" 
-neto$Imports <- NULL
-neto$Exports <- NULL
-neto$`Gross inland consumption` <- NULL
-
-
-write.csv(neto,"podatki/neto.csv")
-
-#Rast porabe po GEO
 
 
 

@@ -2,7 +2,7 @@
 
 "LAST UPDATE: 18.05.17 14:28:38"
 
-"EXTRACTION DATE: 22.05.17 00:16:20"
+"EXTRACTION DATE: 23.05.17 18:43:11"
 
 "SOURCE OF DATA: Eurostat"
 
@@ -55,7 +55,14 @@
 "Finland"
 "Sweden"
 "United Kingdom"
+"Iceland"
 "Norway"
+"Montenegro"
+"Former Yugoslav Republic of Macedonia, the"
+"Albania"
+"Serbia"
+"Turkey"
+"Bosnia and Herzegovina"
 
 "UNIT"
 "Terajoule"
@@ -69,6 +76,7 @@
 "Derived heat"
 "Renewable energies"
 "Electrical energy"
+"Industrial wastes"
 "Waste (non-renewable)"
 
 "INDIC_NRG"

@@ -14,5 +14,6 @@ library(tibble)
 library("RColorBrewer")
 library("classInt")
 library(curl)
+library(mapproj)
 # Uvozimo funkcije za pobiranje in uvoz zemljevida.
 source("lib/uvozi.zemljevid.r", encoding = "UTF-8")
