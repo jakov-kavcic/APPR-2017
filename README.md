@@ -2,11 +2,7 @@
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2016/17
 
-## Tematika
-
-Energija je ena od najpomembnejših surovin za vsako državo ali družbo. V zadnjih letih lahko opazimo več}jo volitilnost na energetskih trgih zaradi številnih ekonomskih, tehnoloških in geopolitičnih razlogov. Zaradi tega je zelo pomembno, da analiziramo pretekle spremembe v potroŠnji in porabi energije, saj le tako lahko predvidimo kakŠna bo naša potreba po energiji v prihodnosti. Vendar pred tem bom povzel dinamiko energetske porabe v Evropi in v določenih državah, v katerih je produkcija ali uvoz energije višja od povprečja. Večje skoke ali upade v porabi bom poskusil povezati z svetovnimi dogodki, saj le to nam bo dalo najboljše orodje za napoved dinamike v prihodnje. Osredotočil se bom na obdobje med 2000 in 2015.
-
-## Podatki
+## Obdelava, uvoz in čiščenje podatkov
 
 Podatke, ki sem jih uporabil pri ustvarjanju svojega projekta sem pridobil s spletne strani EUROSTAT. Poleg tega sem določene podatke posikal na Wikipediji. Oba vira mi bosta omogočila, da črpam neobdelane podatke ali v csv obliki ali v HTML obliki. 
 
@@ -18,50 +14,33 @@ Podatke bom pridobil na spletnih stranieh:
 
 - [Kode držav po standardu ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)
 
+Uvozil sem podatke s EUROSTAT-a v obliki CSV ter v obliki HTML z Wikipedije. Poglejmo si začetke uvoženih razpredelnic.
+
 ## Oblika tabel
 
-Tabela "Poenostavljena letna bilanca" bo vsebovala naslednje stolpce:
+Tabela **all_products** vsebuje naslednje stolpce:
 
-- Država
+- **TIME** - leto *(Npr. 2000)*,
 
-- Leto
+- **GEO** - država *(Npr. Slovenia)*,
 
-- Poraba v ekvivalentnii količini olja
+- **PRODUCT** - vrsta energetske surovine *(Npr. Gas)*,
 
-Tabela "Izvoz in uvoz energetskih produktov na letni ravni" bo vsebovala naslednje stolpce:
+- **INDIC_NRG** - določa količino uvoza, izvoza in porabe *(Npr. Exports)* in
 
-- Država
+- **Value** - količina energije izražene v terajoulih.
 
-- Leto
+Tabela **ak** vsebuje dva stolpca:
 
-- Izvožena energija v ekvivalentnii količini olja
+- **GEO** - država in
 
-- Uvožena energija v ekvivalentnii količini olja
+- **Koda** - kode držav po standardu ISO 3166-2.
 
-Tabela "Poraba glede na produkt" bo vsebovala naslednje stolpce:
+Tabela **po** vsebuje dva stolpca:
 
-- Država
+- **GEO** - država in
 
-- Leto
-
-- Poraba trdih goriv
-
-- Poraba Benzina in dizela 
-
-- Poraba LPG
-
-- Poraba letalskega benzina
-
-- Poraba drugega kerosina
-
-- Poraba kerosina za letala
-
-- Poraba petroleja
-
-- Poraba naravnega plina
-
-- Poraba elektrike
-
+- **Populacija** - populacija posamezne države.
 
 
 ## Program
