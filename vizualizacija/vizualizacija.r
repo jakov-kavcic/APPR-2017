@@ -15,5 +15,6 @@ poraba_po <- all_products %>% filter(PRODUCT=="All products" &
                                        GEO %in% drzave) %>%
   select(GEO, Poraba = Value) %>% inner_join(po) %>% transmute(GEO = parse_factor(GEO, ak$GEO),na.prebivalca = Poraba / Populacija) %>% 
   inner_join(ak)%>% mutate(Koda = factor(Koda, levels = levels(zemljevid$NUTS_ID)))
+
 poraba_po <- filter(poraba_po,poraba_po$Koda !="IS")
 poraba_po <- poraba_po[,c("GEO","Koda","na.prebivalca")]

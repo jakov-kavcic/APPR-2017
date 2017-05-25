@@ -43,7 +43,7 @@ source("uvoz/uvoz1.R", encoding = "UTF-8")
 
 Uvozil sem podatke s EUROSTAT-a v obliki CSV ter v obliki HTML z Wikipedije. Poglejmo si začetke uvoženih razpredelnic.
 
-# Oblika tabel
+## Oblika tabel
 
 Tabela **all_products** vsebuje naslednje stolpce:
 
@@ -109,25 +109,54 @@ print(graf1)
 ```{r graf2, echo=FALSE, fig.align='center',fig.width=10}
 print(graf2)
 ```
-***
 
-# Napredna analiza podatkov
+## Procentualna dinamika
 
-```{r analiza, echo=FALSE, message=FALSE}
-#source("analiza/analiza.r", encoding = "UTF-8")
+Sestavil sem tudi novo tabelo **rast_porabe**, ki vsebuje podatke o letnih spremembah v energetski porabi v Evropski Uniji. Tabela ima naslednje stolpce:
+
+- **TIME** - leto,
+
+- **GEO** - država in
+
+- **Rast** - sprememba potrošnje v primerjavi s preteklim letom v %.
+
+```{r rast_porabe, echo=FALSE,fig.align='center',fig.width=10}
+kable(head(rast_porabe), caption = "Rast porabe ")
 ```
 
-Slika \ref{fig:graf} prikazuje povezavo med številom naselij in površino občine.
+Spodnji graf prikazuje gibanje potrošnje v Evropski Uniji iz leta v leto. Lahko opazimo trend upadanja potrošnje po letu 2003. Vendar v vsakem slučaju so spremembe relativno majhne. Med leti 2000 in 2015 je energetska poraba v evropi porasla za 6.3%.
 
-```{r graf, echo=FALSE, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-# ggplot(inner_join(obcine, data.frame(obcina = names(skupine),
-#                                      skupina = factor(skupine)), by = "obcina")
-# , aes(x = povrsina, y = naselja, color = skupina, size = prebivalci/1000)) + geom_point() +
-#   ggtitle("Število naselij glede na površino občine") +
-#   xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-#   guides(color = guide_legend(title = "Skupina"),
-#          size = guide_legend(title = "Prebivalci (* 1000)"))
+```{r rast_EU28, echo=FALSE,fig.align='center',fig.width=10, fig.cap="Dinamika rasti v %"}
+print(rast_EU28)
 ```
+
+Na isti način sem sestavil graf še za Slovenijo in Nemčijo.
+
+```{r rast_Slo_Nem, echo=FALSE,fig.align='center',fig.width=10}
+print(rast_Slo, fig.cap="Dinamika Slovenske porabe v %")
+print(rast_Ger, caption="Dinamika Nemške porabe v %")
+```
+
+Podobno kot prej sem sestavil tabelo, ki prikazuje rast uvoza, ter izvoza za Evropsko Unijo, Slovenijo ter Nemčijo. S pomočjo te tabele pa sem oblikoval naslednje grafe, ki prikazujejo dinamiko uvoza v državah in uniji.
+
+```{r rast_izvoza, echo=FALSE,fig.align='center',fig.width=10}
+print(rast_i_EU28, caption="Dinamika izvoza Evropske Unije v %")
+print(rast_i_Slo, caption="Dinamika Slovenskega izvoza v %")
+print(rast_i_Ger, caption="Dinamika Nemškega izvoza v %")
+```
+
+Zanimala me je tudi agregatna sprememba uvoza, izvoza in porabe, med leti 2001 in 2015. Za ta namen sem ustvaril novo tabelo **rast_01_15**, ki vsebuje procentualne spremembe. Z namenom boljše vizualizacije sem ustvaril naslednje tri grafe, ki prikazujejo procentualno spremembo.
+
+```{r rast_01_15, echo=FALSE,fig.align='center',fig.width=10}
+print(izvoz_01_15, caption="Spremembe izvoza v %")
+print(uvoz_01_15, caption="Spremembe uvoza v %")
+print(poraba_01_15, caption="Spremembe porabe v %")
+```
+
+## Odvisnost uvoza, izvoza in porabe 
+
+Hotel sem tudi preveriti odvisnost med uvozom, izvozom in porabo. Na nivoju Evropske Unije sem ugotovil, da so vsi trije elementi med seboj pozitivno povezani. Torej če poraste poraba bodo porasla poraba in izvoz. Ista odvisnost je prisotna tudi v Nemčiji. V primeru Norveške pa ni tako. Odnos med uvozom in porabo je pozitiven, vendar odnosa med uvozom in izvozom, ter med porabo in izvozom sta negativna. To pa je dosti bolj logičen rezultat. To pomeni, da ko poraba poraste, poraste tudi uvoz in izvoz vpade. 
+
 
 ***
 

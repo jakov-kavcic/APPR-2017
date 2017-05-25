@@ -12,7 +12,7 @@ all_products$GEO <- gsub("Former Yugoslav Republic of Macedonia, the","Macedonia
 all_products$GEO <- factor(all_products$GEO)
 all_products$Value <- parse_integer(all_products$Value);
 Leta <- c("2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015");
-all_products$TIME <- parse_factor(all_products$TIME,Leta);
+all_products$TIME <- as.numeric(all_products$TIME);
 all_products$UNIT <- NULL
 
 write.csv(all_products,"podatki/all_products.csv")
