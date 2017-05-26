@@ -53,7 +53,7 @@ Tabela **all_products** vsebuje naslednje stolpce:
 
 - **PRODUCT** - vrsta energetske surovine *(Npr. Gas)*,
 
-- **INDIC_NRG** - določa količino uvoza, izvoza in porabe *(Npr. Exports)* in
+- **INDIC_NRG** - določa uvoz, izvoz ali poraba *(Npr. Exports)* in
 
 - **Value** - količina energije izražene v terajoulih.
 
@@ -112,16 +112,18 @@ print(graf2)
 
 ## Procentualna dinamika
 
-Sestavil sem tudi novo tabelo **rast_porabe**, ki vsebuje podatke o letnih spremembah v energetski porabi v Evropski Uniji. Tabela ima naslednje stolpce:
+Sestavil sem tudi novo tabelo **iz_leta_v_leto**, ki vsebuje podatke o letnih spremembah v energetski porabi v Evropski Uniji. Tabela ima naslednje stolpce:
 
 - **TIME** - leto,
+
+- **INDIC_NRG** - določa uvoz, izvoz ali poraba,
 
 - **GEO** - država in
 
 - **Rast** - sprememba potrošnje v primerjavi s preteklim letom v %.
 
 ```{r rast_porabe, echo=FALSE,fig.align='center',fig.width=10}
-kable(head(rast_porabe), caption = "Rast porabe ")
+kable(head(iz_leta_v_leto), caption = "Rast porabe ")
 ```
 
 Spodnji graf prikazuje gibanje potrošnje v Evropski Uniji iz leta v leto. Lahko opazimo trend upadanja potrošnje po letu 2003. Vendar v vsakem slučaju so spremembe relativno majhne. Med leti 2000 in 2015 je energetska poraba v evropi porasla za 6.3%.
@@ -157,9 +159,28 @@ print(poraba_01_15, caption="Spremembe porabe v %")
 
 Hotel sem tudi preveriti odvisnost med uvozom, izvozom in porabo. Na nivoju Evropske Unije sem ugotovil, da so vsi trije elementi med seboj pozitivno povezani. Torej če poraste poraba bodo porasla poraba in izvoz. Ista odvisnost je prisotna tudi v Nemčiji. V primeru Norveške pa ni tako. Odnos med uvozom in porabo je pozitiven, vendar odnosa med uvozom in izvozom, ter med porabo in izvozom sta negativna. To pa je dosti bolj logičen rezultat. To pomeni, da ko poraba poraste, poraste tudi uvoz in izvoz vpade. 
 
+## Delež posameznih produktov
+
+Zanimalo me je katere produkte v Evropski Uniji najbolj uporabljamo. Zato sem izračunal delež vskega produkta v celotni porabi. Predvidljivo se je izkazalo da največ uporabljamo petrolejske produkte, torej benzin, dizel itd.. Naslednji najbolj uporabljen produkt pa je plin, kateremu pa sledijo trdna goriva. Na spodnjem grafu lahko razberemo delež vsakega od produktov.
+
+```{r delez_p_EU28, echo=FALSE,fig.align='center',fig.width=10}
+print(sestava_p_EU28)
+```
+
+Evropska Unija tudi največ izvaža petrolejska goriva in to, kar 69.3%. Sestavo izvoza Evropske Unije lahko vidimo na spodnjem grafu.
+
+```{r delez_i_EU28, echo=FALSE,fig.align='center',fig.width=10}
+print(sestava_i_EU28)
+```
+
+Posledično nas ne more presenetiti, da tudi uvoz petrolejskih produktov predstavlja največji delež celotnega uvoza in sicer kar 63.2%.
+
+```{r delez_u_EU28, echo=FALSE,fig.align='center',fig.width=10}
+print(sestava_u_EU28)
+```
 
 ***
 
 ```{r shiny, echo = FALSE}
-#shinyAppDir("shiny", options=list(width="100%", height=600))
+shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
