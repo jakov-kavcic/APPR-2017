@@ -1,5 +1,5 @@
 ---
-title: "Analiza Evropske proizvodnje in porabe energije"
+title: "Analiza energetike v Evropi"
 author: "Jakov Kavčič"
 output:
   html_document: default
@@ -10,7 +10,7 @@ output:
 runtime: shiny
 ---
 
-```{r setup, echo=FALSE, results='hide', message=FALSE}
+```{r setup, echo=FALSE, results='hide', message=FALSE,warning = FALSE}
 # Če želimo nastaviti pisave v PDF-ju, odkomentiramo
 # in sledimo navodilom v programu.
 source("fontconfig.r", encoding = "UTF-8")
@@ -85,7 +85,7 @@ kable(head(po),caption = "Populacija evropskih držav")
 
 # Vizualizacija podatkov
 
-```{r vizualizacija, echo=FALSE, message=FALSE}
+```{r vizualizacija, echo=FALSE, message=FALSE, fig.width=10}
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 source("analiza/analiza.r", encoding = "UTF-8")
 ```
@@ -149,7 +149,7 @@ print(rast_i_Ger, caption="Dinamika Nemškega izvoza v %")
 
 Zanimala me je tudi agregatna sprememba uvoza, izvoza in porabe, med leti 2001 in 2015. Za ta namen sem ustvaril novo tabelo **rast_01_15**, ki vsebuje procentualne spremembe. Z namenom boljše vizualizacije sem ustvaril naslednje tri grafe, ki prikazujejo procentualno spremembo.
 
-```{r rast_01_15, echo=FALSE,fig.align='center',fig.width=10}
+```{r rast_01_15, echo=FALSE,fig.align='center',fig.width=10,warning = FALSE}
 print(izvoz_01_15, caption="Spremembe izvoza v %")
 print(uvoz_01_15, caption="Spremembe uvoza v %")
 print(poraba_01_15, caption="Spremembe porabe v %")

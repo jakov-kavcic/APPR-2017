@@ -55,7 +55,7 @@ uvoz.ak <- function(){
   tabela$n <- NULL
   tabela$GEO <- gsub("\\[note 1\\]","",tabela$GEO)
   tabela$GEO <- gsub("Czechia","Czech Republic",tabela$GEO)
-  tabela$GEO <- gsub("Former Yugoslav Republic of Macedonia, the","Macedonia",tabela$GEO)
+  tabela$GEO <- gsub("^.*Macedonia.*$", "Macedonia", tabela$GEO)
   tabela$Koda <- gsub("GB","UK",tabela$Koda)
   tabela$Koda <- gsub("GR","EL",tabela$Koda)
   tabela <- filter(tabela, tabela$GEO %in% drzave)
