@@ -77,7 +77,7 @@ shinyUI(fluidPage(
                                'Poraba' ="Gross inland consumption"))  
                  ),
                mainPanel(
-                 plotOutput("Dpp"),
+                 h3(plotOutput("Dpp")),
                  tableOutput("T_Dpp")
                )
                )

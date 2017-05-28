@@ -114,7 +114,7 @@ graf1 <- ggplot(all_products %>% filter(PRODUCT=="All products" &
 sestava_p_EU28 <- ggplot(delez %>% filter(GEO=="European Union (28 countries)" &
                                             INDIC_NRG=="Gross inland consumption")) +
   aes(x="",y=Delez, fill=PRODUCT) + 
-  geom_bar(stat="identity") +
+  geom_bar(stat="identity",width = 1) +
   coord_polar("y",start=0) 
                                     
 sestava_u_EU28 <- sestava_p_EU28 %+% filter(delez,GEO=="European Union (28 countries)" & 
