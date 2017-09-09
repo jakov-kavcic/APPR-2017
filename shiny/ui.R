@@ -51,7 +51,7 @@ shinyUI(fluidPage(
                  plotOutput("Pd")
                )
                ),
-      tabPanel("Sprememba med leti 2001 in 20015",
+      tabPanel("Sprememba med leti 2001 in 2015",
                sidebarPanel(
                selectInput(inputId = "INDIC_NRG_Sl", 
                            label="Vrsta podatkov", 
@@ -74,7 +74,10 @@ shinyUI(fluidPage(
                              "Vrsta podatkov",
                              c('Uvoz' ="Imports",
                                'Izvoz' ="Exports",
-                               'Poraba' ="Gross inland consumption"))  
+                               'Poraba' ="Gross inland consumption")),
+                 selectInput("TIME_Dpp",
+                             "Leto",
+                             Leta)
                  ),
                mainPanel(
                  h3(plotOutput("Dpp")),

@@ -21,13 +21,15 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Energija je ena od najpomembnejših surovin za vsako državo ali družbo. V zadnjih letih lahko opazimo več}jo volitilnost na energetskih trgih zaradi številnih ekonomskih, tehnoloških in geopolitičnih razlogov. Zaradi tega je zelo pomembno, da analiziramo pretekle spremembe v potroŠnji in porabi energije, saj le tako lahko predvidimo kakŠna bo naša potreba po energiji v prihodnosti. Vendar pred tem bom povzel dinamiko energetske porabe v Evropi in v določenih državah, v katerih je produkcija ali uvoz energije višja od povprečja. Večje skoke ali upade v porabi bom poskusil povezati z svetovnimi dogodki, saj le to nam bo dalo najboljše orodje za napoved dinamike v prihodnje. Osredotočil se bom na obdobje med 2000 in 2015. 
+Energija je ena od najpomembnejših surovin za vsako državo ali družbo. V zadnjih letih lahko opazimo večjo volitilnost na energetskih trgih zaradi številnih ekonomskih, tehnoloških in geopolitičnih razlogov. Zaradi tega je zelo pomembno, da analiziramo pretekle spremembe v potrošnji in porabi energije, saj le tako lahko razumemo dinamiko rnergetskega trga.
+
+V tem projektu bom poskusil opisati trende v porabi, potrošnji in proizvodnji energije med leti 2000 in 2015. Eden od glavnih trendov, ki jih bom opisal je spreminjanje virov energije.
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-Podatke, ki sem jih uporabil pri ustvarjanju svojega projekta sem pridobil s spletne strani EUROSTAT. Poleg tega sem določene podatke posikal na Wikipediji. Oba vira mi bosta omogočila, da črpam neobdelane podatke ali v csv obliki ali v HTML obliki. 
+Podatke, ki sem jih uporabil pri ustvarjanju svojega projekta sem pridobil s spletne strani EUROSTAT. Poleg tega sem določene podatke poiskal na Wikipediji. Oba vira mi bosta omogočila, da črpam neobdelane podatke ali v csv obliki ali v HTML obliki. 
 
 Podatke bom pridobil na spletnih stranieh:
 
@@ -41,7 +43,7 @@ Podatke bom pridobil na spletnih stranieh:
 source("uvoz/uvoz1.R", encoding = "UTF-8")
 ```
 
-Uvozil sem podatke s EUROSTAT-a v obliki CSV ter v obliki HTML z Wikipedije. Poglejmo si začetke uvoženih razpredelnic.
+Uvozil sem podatke s EUROSTAT-a v obliki CSV ter v obliki HTML z Wikipedije.
 
 ## Oblika tabel
 
@@ -90,29 +92,29 @@ source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 source("analiza/analiza.r", encoding = "UTF-8")
 ```
 
-Slika \ref{fig:zemljevid} prikazuje potrošnjo energijskih virov na število prebivalcev v letu 2015. S tem sem hotel primerjati države glede na prebivalstvo. Lahko opazimo, da bolj industriske države imajo večji koeficjent. Najvišji koeficjent pa imajo seveda severne države zaradi njihovih vremenskih razmer. Daleč najvišji koeficjent ima Islandija, ki sem jo vendar izločil pri izdelavi te slike. 
+Slika \ref{fig:zemljevid} prikazuje potrošnjo energijskih virov na število prebivalcev v letu 2015. S tem sem hotel primerjati države glede na prebivalstvo. Lahko opazimo, da bolj industriske države imajo večji koeficjent. Najvišji koeficjent pa imajo seveda severne države zaradi njihovih vremenskih razmer. Daleč najvišji koeficjent ima Islandija, vendar sem zaradi boljše vizualizacije je nisem vključil v spodnjo sliko.
 
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Potrošnja energijskih virov na število prebivalcev.', fig.width=10}
+```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Potrošnja energijskih virov na število prebivalcev', fig.width=10}
 ggplot() + geom_polygon(data = zemljevid %>% left_join(poraba_po, by = c("NUTS_ID" = "Koda")),
                                 aes(x = long, y = lat, group = group, fill = na.prebivalca)) +
-        coord_map(xlim = c(-13, 48), ylim = c(32, 72)) +
-        ggtitle("Potrošnja energijskih virov na število prebivalcev") + xlab("") + ylab("") +
+        coord_map(xlim = c(-13, 48), ylim = c(32, 72)) + xlab("") + ylab("") +
         guides(fill = guide_colorbar(title = "TJ na prebivalca"))
 ```
 
-Spodnja grafa prikazujeta gibanje energetske potrošnje držav skozi leta. Zaradi boljše preglednosti sem graf razdelil na dva dela, saj tako so spremembe dosti bolj opazne.
+Spodnja grafa prikazujeta agregatno porabo energije držav med leti 2000 in 2015. Prvi trend, ki ga lahko opazimo je počasen vpad v potrošnji energije v južnih in severnih državah. Razlog za to je lahko večje zavedanje o globalnem segrevanju, kar je povzročilo optimizacijo porabe z namenom zmanjšanja človeškega vpliva na okolje. 
+Druga in bolj verjetna razlaga je podražitev nafte po letu 2002, ko je cena soda nafte bila \$27. Trend podražitve se je nadaljeval do leta 2014, ko je cena soda nafte bila \$108. To razlago tudi potrjuje dejstvo, da je potrošnja energije pridobljene iz nafte v Evropski Uniji med leti 2000 in 2015 upadla za 17.3\%, medtem ko je izvoz nafte porastel za 23\%. 
 
-```{r graf1, echo=FALSE, fig.align='center', fig.width=10}
+```{r graf1, echo=FALSE, fig.align='center', fig.width=10,fig.cap='Potrošnja severnih držav'}
 print(graf1)
 ```
 
-```{r graf2, echo=FALSE, fig.align='center',fig.width=10}
+```{r graf2, echo=FALSE, fig.align='center',fig.width=10, fig.cap='Potrošnja južniih držav'}
 print(graf2)
 ```
 
 ## Procentualna dinamika
 
-Sestavil sem tudi novo tabelo **iz_leta_v_leto**, ki vsebuje podatke o letnih spremembah v energetski porabi v Evropski Uniji. Tabela ima naslednje stolpce:
+Sestavil sem novo tabelo **iz_leta_v_leto**, ki vsebuje podatke o letnih spremembah v energetski porabi v Evropski Uniji. Tabela ima naslednje stolpce:
 
 - **TIME** - leto,
 
@@ -126,58 +128,44 @@ Sestavil sem tudi novo tabelo **iz_leta_v_leto**, ki vsebuje podatke o letnih sp
 kable(head(iz_leta_v_leto), caption = "Rast porabe ")
 ```
 
-Spodnji graf prikazuje gibanje potrošnje v Evropski Uniji iz leta v leto. Lahko opazimo trend upadanja potrošnje po letu 2003. Vendar v vsakem slučaju so spremembe relativno majhne. Med leti 2000 in 2015 je energetska poraba v evropi porasla za 6.3%.
+Spodnji graf prikazuje gibanje potrošnje v Evropski Uniji iz leta v leto. Lahko opazimo trend upadanja potrošnje med opazovanimi leti. Skoki med leti so lahko povzročeni z polnjenjem zalog zaradi zelo nestabilne cene, ki je do leta 2014 rasla. 
 
-```{r rast_EU28, echo=FALSE,fig.align='center',fig.width=10, fig.cap="Dinamika rasti v %"}
+```{r rast_EU28, echo=FALSE,fig.align='center',fig.width=10, fig.cap="Dinamika potrošnje"}
 print(rast_EU28)
 ```
 
-Na isti način sem sestavil graf še za Slovenijo in Nemčijo.
+Podobno kot prej sem sestavil tabelo, ki prikazuje rast uvoza, ter izvoza za Evropsko Unijo. S pomočjo te tabele pa sem oblikoval naslednji graf, ki prikazujejo dinamiko izvoza v uniji. Iz tega grafa lahko razberemo, da je opažen trend pri porabi obrnjen pri izvozu, saj je izvoz postal dosti bolj ekonomičen. Zanimivo je, da se je tudi uvoz povečal med leti 2000 in 2015.
 
-```{r rast_Slo_Nem, echo=FALSE,fig.align='center',fig.width=10}
-print(rast_Slo, fig.cap="Dinamika Slovenske porabe v %")
-print(rast_Ger, caption="Dinamika Nemške porabe v %")
+```{r rast_izvoza, echo=FALSE,fig.align='center',fig.width=10, fig.cap='Dinamika izvoza Evropske Unije'}
+print(rast_i_EU28)
 ```
 
-Podobno kot prej sem sestavil tabelo, ki prikazuje rast uvoza, ter izvoza za Evropsko Unijo, Slovenijo ter Nemčijo. S pomočjo te tabele pa sem oblikoval naslednje grafe, ki prikazujejo dinamiko uvoza v državah in uniji.
-
-```{r rast_izvoza, echo=FALSE,fig.align='center',fig.width=10}
-print(rast_i_EU28, caption="Dinamika izvoza Evropske Unije v %")
-print(rast_i_Slo, caption="Dinamika Slovenskega izvoza v %")
-print(rast_i_Ger, caption="Dinamika Nemškega izvoza v %")
-```
-
-Zanimala me je tudi agregatna sprememba uvoza, izvoza in porabe, med leti 2001 in 2015. Za ta namen sem ustvaril novo tabelo **rast_01_15**, ki vsebuje procentualne spremembe. Z namenom boljše vizualizacije sem ustvaril naslednje tri grafe, ki prikazujejo procentualno spremembo.
-
-```{r rast_01_15, echo=FALSE,fig.align='center',fig.width=10,warning = FALSE}
-print(izvoz_01_15, caption="Spremembe izvoza v %")
-print(uvoz_01_15, caption="Spremembe uvoza v %")
-print(poraba_01_15, caption="Spremembe porabe v %")
-```
+Zanimala me je tudi agregatna sprememba uvoza, izvoza in porabe, med leti 2001 in 2015, za vse vrste energetskih produktov. Za ta namen sem ustvaril novo tabelo **rast_01_15**, ki vsebuje procentualne spremembe. Podatke iz tabele sem uporabljav v večih delih projekta in so na voljo na dnu poročila.
 
 ## Odvisnost uvoza, izvoza in porabe 
 
-Hotel sem tudi preveriti odvisnost med uvozom, izvozom in porabo. Na nivoju Evropske Unije sem ugotovil, da so vsi trije elementi med seboj pozitivno povezani. Torej če poraste poraba bodo porasla poraba in izvoz. Ista odvisnost je prisotna tudi v Nemčiji. V primeru Norveške pa ni tako. Odnos med uvozom in porabo je pozitiven, vendar odnosa med uvozom in izvozom, ter med porabo in izvozom sta negativna. To pa je dosti bolj logičen rezultat. To pomeni, da ko poraba poraste, poraste tudi uvoz in izvoz vpade. 
+Hotel sem tudi preveriti odvisnost med uvozom, izvozom in porabo. Na nivoju Evropske Unije sem ugotovil, da so vsi trije elementi med seboj pozitivno povezani. Torej če poraste poraba bodo porasla poraba in izvoz. Ista odvisnost je prisotna tudi v Nemčiji. V primeru Norveške pa ni tako. Odnos med uvozom in porabo je pozitiven, vendar odnosa med uvozom in izvozom, ter med porabo in izvozom sta negativna. To pa je dosti bolj logičen rezultat. To pomeni, da ko poraba poraste, poraste tudi uvoz in izvoz vpade. Razlika v korelaciji med Norveško in Evropsko unijo je povzročena zaradi efekta agregacije. 
 
 ## Delež posameznih produktov
 
-Zanimalo me je katere produkte v Evropski Uniji najbolj uporabljamo. Zato sem izračunal delež vskega produkta v celotni porabi. Predvidljivo se je izkazalo da največ uporabljamo petrolejske produkte, torej benzin, dizel itd.. Naslednji najbolj uporabljen produkt pa je plin, kateremu pa sledijo trdna goriva. Na spodnjem grafu lahko razberemo delež vsakega od produktov.
+Zanimalo me je katere produkte v Evropski Uniji najbolj uporabljamo. Zato sem izračunal delež vskega produkta v celotni porabi. Predvidljivo se je izkazalo da največ uporabljamo naftne produkte, torej benzin, dizel itd.. Naslednji najbolj uporabljen produkt pa je plin, kateremu pa sledijo trdna goriva. Kot smo na začetku predpostavli je delež naftnih produktov v celotni porabi upadel med leti 2000 in 2015 in sicer z 38.28\% na 34.42\%.
 
-```{r delez_p_EU28, echo=FALSE,fig.align='center',fig.width=10}
-print(sestava_p_EU28)
+Na spodnjem grafu je predstavljena struktura porabe v Evropski Uniji leta 2015. 
+
+```{r delez_p_EU28, echo=FALSE,fig.align='center',fig.width=10, fig.cap='Sestava porabe v EU leta 2015'}
+print(sestava_p_EU28_15)
 ```
 
-Evropska Unija tudi največ izvaža petrolejska goriva in to, kar 69.3%. Sestavo izvoza Evropske Unije lahko vidimo na spodnjem grafu.
+Kot je bilo pričakovano v evropi porabimo daleč največ naftnih produktov. Poleg tega uporabljamo dosti trdih goriv, kot so les in oglje, zemeljskega plina ter nuklearnih virov. Poraba vseh teh vrst produktov je vpadla. Največji porast v deležu porabe so imeli obnovljivi viri, kar je v skladu z prvo predpostavko. 
 
-```{r delez_i_EU28, echo=FALSE,fig.align='center',fig.width=10}
-print(sestava_i_EU28)
-```
+Evropska unija največ izvaža naftnih produktov, saj so predstavljali kar 69\% vseh izvozov leta 2000 in 76\% leta 2015. Poleg nafte izvažamo tudi plin, ki je predstavljal 16\% vseh izvozov leta 2015 in 11\% leta 2000.
 
-Posledično nas ne more presenetiti, da tudi uvoz petrolejskih produktov predstavlja največji delež celotnega uvoza in sicer kar 63.2%.
+Sestava uvoza energije v Evropsko Unijo se ni veliko spremenil med leti, ampak ševedno lahko opazimo, da smo začeli uvažati več plina in manj naftnih produktov, kar je tudi skladno z drugo predpostavko.
 
-```{r delez_u_EU28, echo=FALSE,fig.align='center',fig.width=10}
-print(sestava_u_EU28)
-```
+## Aplikacija
+
+V spodnji aplikaciji si lahko ogledate vse podatke, ki sem jih uporabil v pripravi tega projekta. Poleg tega si lahko ogledate tudi spremembe v procentih med leti 2001 in 2015, procentualno gibanje med leti in delež vrst goriva v izvozu, uvozu in porabi, za vse države in vsa leta.
+
 
 ***
 

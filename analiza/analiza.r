@@ -38,13 +38,13 @@ co_u_i_n <- cov(iz_leta_v_leto[iz_leta_v_leto$GEO=="Norway" &iz_leta_v_leto$INDI
                    iz_leta_v_leto[iz_leta_v_leto$GEO=="Norway" & iz_leta_v_leto$INDIC_NRG=="Imports","Rast"])
 
 #Delež v celoti
-products2015 <- all_products %>% filter(TIME == 2015) %>% select(-TIME) %>% drop_na()
-delez <- products2015 %>% filter(PRODUCT == "All products") %>%
+products <- all_products %>% drop_na()
+delez <- products %>% filter(PRODUCT == "All products") %>%
   select(-PRODUCT) %>% rename(Total = Value) %>%
-  inner_join(products2015 %>% filter(PRODUCT != "All products")) %>%
-  transmute(GEO, PRODUCT, INDIC_NRG, Delez = 100*Value/Total) %>%
+  inner_join(products %>% filter(PRODUCT != "All products")) %>%
+  transmute(GEO, TIME, PRODUCT, INDIC_NRG, Delez = 100*Value/Total) %>%
   filter(Delez >= 0.05)
-
+delez$TIME <- as.character(delez$TIME)
 ##Grafi za poročilo
 
 #Rast med 2001 in 2015
@@ -97,7 +97,6 @@ graf2 <- ggplot(all_products %>% filter(PRODUCT=="All products" &
                                 aes(x=TIME,y=Value/1000,color=GEO)) +
                                 geom_line(aes(group=GEO)) +
                                 xlab("Leto") + ylab("tisoče terajoulov") +
-                                ggtitle(paste0("Potrošnja južniih držav")) +
                                 theme_bw()
 
 graf1 <- ggplot(all_products %>% filter(PRODUCT=="All products" &
@@ -106,19 +105,20 @@ graf1 <- ggplot(all_products %>% filter(PRODUCT=="All products" &
                                           aes(x=TIME,y=Value/1000,color=GEO)) +
                                           geom_line(aes(group=GEO)) +
                                           theme_bw() + xlab("Leto") +
-                                          ylab("tisoče terajoulov") +
-                                          ggtitle(paste0("Potrošnja severnih držav"))
+                                          ylab("tisoče terajoulov")
 
 # Sestava uvoza, izvoza in porabe
 
-sestava_p_EU28 <- ggplot(delez %>% filter(GEO=="European Union (28 countries)" &
-                                            INDIC_NRG=="Gross inland consumption")) +
-  aes(x="",y=Delez, fill=PRODUCT) + 
+sestava_p_EU28_01 <- ggplot(delez %>% filter(GEO=="European Union (28 countries)" &
+                                            INDIC_NRG=="Gross inland consumption" & TIME=="2001")) +
+  aes(x="",y="", fill=PRODUCT) + 
   geom_bar(stat="identity",width = 1) +
   coord_polar("y",start=0) 
                                     
-sestava_u_EU28 <- sestava_p_EU28 %+% filter(delez,GEO=="European Union (28 countries)" & 
-                                              INDIC_NRG=="Imports")
-sestava_i_EU28 <- sestava_p_EU28 %+% filter(delez,GEO=="European Union (28 countries)" & 
-                                              INDIC_NRG=="Exports")
+sestava_p_EU28_15 <- ggplot(delez %>% filter(GEO=="European Union (28 countries)" &
+                                            INDIC_NRG=="Gross inland consumption" & TIME=="2015")) +
+  aes(x="",y="", fill=PRODUCT) + 
+  geom_bar(stat="identity",width = 1) +
+  coord_polar("y",start=0)
+
   

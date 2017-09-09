@@ -44,19 +44,19 @@ shinyServer(function(input, output) {
   })
   
   output$Dpp <-  renderPlot({
-    data_Dpp <- delez %>% filter(GEO==input$GEO_Dpp &
+    data_Dpp <- delez %>% filter(GEO==input$GEO_Dpp & TIME==input$TIME_Dpp &
                                   INDIC_NRG==input$INDIC_NRG_Dpp) %>% drop_na()
     validate(need(nrow(data_Dpp) > 0, "Ni podatkov"))
     ggplot(data_Dpp) +
-      aes(x="",y=Delez, fill=PRODUCT) + 
+      aes(x="",y="", fill=PRODUCT) + 
       geom_bar(stat="identity",width = 1) +
       coord_polar("y",start=0) 
   })
   output$T_Dpp <- renderTable({
-   T_Dpp <-  delez %>% filter(GEO==input$GEO_Dpp &
-                                   INDIC_NRG==input$INDIC_NRG_Dpp) %>% drop_na() 
+   T_Dpp <-  delez %>% filter(GEO==input$GEO_Dpp & TIME==input$TIME_Dpp &
+                                   INDIC_NRG==input$INDIC_NRG_Dpp) %>% drop_na()
    validate(need(nrow(T_Dpp) > 0, "Ni podatkov"))
-   colnames(T_Dpp) <- c("Država","Produkt","Vrsta podatkov","Delež" )
+   colnames(T_Dpp) <- c("Država", "Leto" ,"Produkt","Vrsta podatkov","Delež v %" )
    T_Dpp
   })
   
