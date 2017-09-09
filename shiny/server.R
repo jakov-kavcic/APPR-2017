@@ -48,7 +48,8 @@ shinyServer(function(input, output) {
                                   INDIC_NRG==input$INDIC_NRG_Dpp) %>% drop_na()
     validate(need(nrow(data_Dpp) > 0, "Ni podatkov"))
     ggplot(data_Dpp) +
-      aes(x="",y="", fill=PRODUCT) + 
+      aes(x="",y=Delez, fill=PRODUCT) + 
+      xlab("")+ylab("")+
       geom_bar(stat="identity",width = 1) +
       coord_polar("y",start=0) 
   })
